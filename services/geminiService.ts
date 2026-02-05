@@ -2,32 +2,33 @@ import { GoogleGenAI, Modality, GenerateContentResponse } from "@google/genai";
 import { DiagnosisResult } from "../types";
 
 // --- CONFIGURATION ---
-// Fallback key provided by user to ensure immediate functionality
-const FALLBACK_KEY = "AIzaSyCr5n0i7yzMNcXkSpfsU1Cls_KfNmB1Pxo";
-
+// Read API key from Vite env (never hard‑code it in source)
 const getAiClient = () => {
-  let key = process.env.API_KEY;
+    // Vite exposes env vars as import.meta.env and only those
+    // prefixed with VITE_ are available on the client bundle.
+    let key = (import.meta as any).env.VITE_GEMINI_API_KEY as string | undefined;
 
-  // 1. Fallback if process.env is empty
-  if (!key) {
-      console.warn("Using fallback API Key provided in code.");
-      key = FALLBACK_KEY;
-  }
+    // Sanitize double‑paste error.
+    if (key && key.length > 40 && key.startsWith("AIza")) {
+        const mid = Math.floor(key.length / 2);
+        const firstHalf = key.substring(0, mid);
+        const secondHalf = key.substring(mid);
 
-  // 2. Sanitize double-paste error. 
-  if (key && key.length > 40 && key.startsWith('AIza')) {
-       const mid = Math.floor(key.length / 2);
-       const firstHalf = key.substring(0, mid);
-       const secondHalf = key.substring(mid);
-       
-       if (firstHalf === secondHalf) {
-           console.log("Detected doubled API Key. Sanitizing...");
-           key = firstHalf;
-       }
-  }
+        if (firstHalf === secondHalf) {
+            console.log("Detected doubled API Key. Sanitizing...");
+            key = firstHalf;
+        }
+    }
 
-  // Ensure no whitespace issues
-  return new GoogleGenAI({ apiKey: (key || '').trim() });
+    key = (key || "").trim();
+
+    if (!key) {
+        // Surface a clear error that retryWithBackoff will map
+        // to INVALID_API_KEY for the UI.
+        throw new Error("INVALID_API_KEY");
+    }
+
+    return new GoogleGenAI({ apiKey: key });
 };
 
 // --- RETRY LOGIC ---
