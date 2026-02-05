@@ -1,0 +1,46 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="leafGradient" x1="256" y1="100" x2="256" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10" />
+      <feOffset dx="0" dy="5" result="offsetblur" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Shield Background -->
+  <path d="M256 32C180 32 64 64 64 64V224C64 336 140 430 256 480C372 430 448 336 448 224V64C448 64 332 32 256 32Z" 
+        fill="url(#shieldGradient)" 
+        filter="url(#dropShadow)" />
+  
+  <!-- Leaf/Sprout Icon -->
+  <path d="M256 400C256 400 240 320 192 272C144 224 160 144 160 144C160 144 224 144 272 192C304 224 304 256 304 256" 
+        stroke="url(#leafGradient)" 
+        stroke-width="32" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+        
+  <path d="M256 400V256" 
+        stroke="url(#leafGradient)" 
+        stroke-width="32" 
+        stroke-linecap="round"/>
+        
+  <path d="M256 320C256 320 288 288 336 288C384 288 384 224 384 224" 
+        stroke="url(#leafGradient)" 
+        stroke-width="32" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>
