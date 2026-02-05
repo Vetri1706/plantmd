@@ -3,7 +3,7 @@ import { DiagnosisResult } from "../types";
 
 // --- CONFIGURATION ---
 // Fallback key provided by user to ensure immediate functionality
-const FALLBACK_KEY = "AIzaSyAYciXAevVucD6ch177LMdkoRSFT_HdBTE";
+const FALLBACK_KEY = "AIzaSyCr5n0i7yzMNcXkSpfsU1Cls_KfNmB1Pxo";
 
 const getAiClient = () => {
   let key = process.env.API_KEY;
@@ -26,7 +26,8 @@ const getAiClient = () => {
        }
   }
 
-  return new GoogleGenAI({ apiKey: key || '' });
+  // Ensure no whitespace issues
+  return new GoogleGenAI({ apiKey: (key || '').trim() });
 };
 
 // --- RETRY LOGIC ---
