@@ -1,9 +1,0 @@
-{
-  "name": "PlantMD - AI Disease Diagnosis",
-  "description": "A production-grade AI platform for diagnosing plant diseases, getting treatment plans, and connecting with agricultural experts using Google Gemini.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone",
-    "geolocation"
-  ]
-}
